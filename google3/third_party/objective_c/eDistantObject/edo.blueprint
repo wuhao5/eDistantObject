@@ -1,0 +1,70 @@
+// Blueprint file for eDistantObject
+//
+// See //depot/google3/devtools/blueprint/blueprint_file.proto for a full list
+// of attributes that can be specified in BlueprintFile(...).
+include "devtools/blueprint/ncl/blueprint_file.ncl";
+
+CONFIG_FLAGS = [
+  "--ios_minimum_os=9.0",
+  "--xcode_version=9.2",
+];
+
+COVERAGE_FILTERS = [
+  "//third_party/objective_c/eDistantObject",
+  "-//Service/Tests",
+  "-//Channel/Tests",
+];
+
+// TODO(haowoo): Enable the target once b/65156622 is fixed.
+BUILD_PATTERNS = [
+  "//...",
+  "-//Service/Tests/Performance/...",
+];
+
+TEST_PATTERNS = [
+  "//...",
+  "-//Service/Tests/Performance/...",
+];
+
+blueprint_file = ::blueprint::BlueprintFile(
+  teams_product_id = 11812665713,  // http://teams/product/11812665713
+  project_name = "easy_distant_object",
+  tech_lead = ["haowoo"],
+  dev_mailing_list = "earlgrey-2-dev+edo@google.com",
+  buganizer_component_ids = [187414],
+  project_grouping = ["Ads", "Engineering Productivity"],
+  mdb_groups = ["ads-tap-prod"],
+
+  owned_code_depotpaths = [
+    "//depot/google3/...",
+  ],
+
+  buildable_units = [
+    ::blueprint::BuildableUnit(
+      name = "easy_distant_object.i386",
+      enable_continuous_build = true,
+      enable_release = false,
+      enable_coverage = true,
+      build_patterns = BUILD_PATTERNS,
+      build_flags = CONFIG_FLAGS + ["--config=ios_i386"],
+      test_patterns = TEST_PATTERNS,
+      continuous_build_email = ::blueprint::ContinuousBuildEmailInfo(
+        build_cop_email_addrs = ["earlgrey-2-dev+edo@google.com"],
+      ),
+      coverage_instrumentation_filters = COVERAGE_FILTERS,
+    ),
+    ::blueprint::BuildableUnit(
+      name = "easy_distant_object.x86_64",
+      enable_continuous_build = true,
+      enable_release = false,
+      enable_coverage = true,
+      build_patterns = BUILD_PATTERNS,
+      build_flags = CONFIG_FLAGS + ["--config=ios_x86_64"],
+      test_patterns = TEST_PATTERNS,
+      continuous_build_email = ::blueprint::ContinuousBuildEmailInfo(
+        build_cop_email_addrs = ["earlgrey-2-dev+edo@google.com"],
+      ),
+      coverage_instrumentation_filters = COVERAGE_FILTERS,
+    ),
+  ],
+);

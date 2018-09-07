@@ -16,6 +16,7 @@
 
 #import "Service/Sources/EDOObjectAliveMessage.h"
 
+#import "Service/Sources/EDOBlockObject.h"
 #import "Service/Sources/EDOHostService+Private.h"
 
 static NSString *const kEDOObjectAliveCoderObjectKey = @"object";
@@ -23,8 +24,9 @@ static NSString *const kEDOObjectAliveCoderObjectKey = @"object";
 #pragma mark -
 
 @interface EDOObjectAliveRequest ()
-/** The EDOObject that needs to check if its underlying object is alive. */
-@property(readonly) EDOObject *object;
+// The proxy object that needs to check if its underlying object is alive. It could either be an
+// EDOObject or block object.
+@property(readonly) id object;
 @end
 
 #pragma mark -
@@ -55,7 +57,9 @@ static NSString *const kEDOObjectAliveCoderObjectKey = @"object";
 + (EDORequestHandler)requestHandler {
   return ^(EDOServiceRequest *request, EDOHostService *service) {
     EDOObjectAliveRequest *retainRequest = (EDOObjectAliveRequest *)request;
-    EDOObject *object = retainRequest.object;
+    EDOObject *object = [EDOBlockObject isBlock:retainRequest.object]
+                            ? [EDOBlockObject EDOBlockObjectFromBlock:retainRequest.object]
+                            : retainRequest.object;
     object = [service isObjectAlive:object] ? object : nil;
     return [EDOObjectAliveResponse responseWithObject:object forRequest:request];
   };
