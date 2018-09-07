@@ -1,0 +1,14 @@
+{
+  "configDefaults" : {
+    "optionSet" : {
+
+    }
+  },
+  "projectName" : "eDistantObject",
+  "packages" : [
+    "third_party\/objective_c\/eDistantObject\/Channel",
+    "third_party\/objective_c\/eDistantObject\/Service",
+    "third_party\/objective_c\/eDistantObject\/Service\/Tests"
+  ],
+  "workspaceRoot" : "..\/..\/..\/.."
+}

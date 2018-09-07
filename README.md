@@ -1,7 +1,6 @@
 # eDistantObject
 
 [![Apache License](https://img.shields.io/badge/license-Apache%202-lightgrey.svg?style=flat)](https://github.com/google/eDistantObject/blob/master/LICENSE)
-[![Build Status](https://travis-ci.org/google/eDistantObject.svg?branch=master)](https://travis-ci.org/google/eDistantObject)
 
 eDistantObject (easyDistantObject or eDO) provides users an easy way to make remote invocations
 between processes in Objective-C and Swift without explicitly
@@ -88,7 +87,7 @@ to the host.
 }
 ```
 
-For more information please look at [Where to write code](docs/setup.md#where-to-write-code).
+For more information please look at [Where to write code](docs/setup.md#Where to write code).
 
 ## Swift Support
 
