@@ -15,7 +15,7 @@
 // limitations under the License.
 //
 
-import Foundation
+
 
 @objc
 public protocol EDOTestSwiftProtocol {
