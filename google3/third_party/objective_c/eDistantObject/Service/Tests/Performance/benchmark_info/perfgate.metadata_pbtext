@@ -1,0 +1,80 @@
+annotated_batch {
+  benchmark_key: "5405324537233408"
+  tags: "env=test"
+  success_tags: "status=pass"
+  failure_tags: "status=fail"
+  threshold_analyzer_input: {
+    configs: {
+      min: 0
+      max: 15
+      data_filter: {
+        data_type: METRIC_AGGREGATE_MEAN
+        value_key: "GetRootObjectlatency"
+      }
+    }
+    configs: {
+      min: 0
+      max: 35
+      data_filter: {
+        data_type: METRIC_AGGREGATE_MEAN
+        value_key: "IDOutParameterlatency"
+      }
+    }
+    configs: {
+      min: 0
+      max: 15
+      data_filter: {
+        data_type: METRIC_AGGREGATE_MEAN
+        value_key: "RemoteClassAlloclatency"
+      }
+    }
+    configs: {
+      min: 0
+      max: 35
+      data_filter: {
+        data_type: METRIC_AGGREGATE_MEAN
+        value_key: "PassByValuelatency"
+      }
+    }
+    configs: {
+      min: 0
+      max: 25
+      data_filter: {
+        data_type: METRIC_AGGREGATE_MEAN
+        value_key: "PassByValueRemoteObjectlatency"
+      }
+    }
+    configs: {
+      min: 0
+      max: 40
+      data_filter: {
+        data_type: METRIC_AGGREGATE_MEAN
+        value_key: "ReturnByValuelatency"
+      }
+    }
+    configs: {
+      min: 0
+      max: 50
+      data_filter: {
+        data_type: METRIC_AGGREGATE_MEAN
+        value_key: "RemoteExceptionThrownlatency"
+      }
+    }
+    configs: {
+      min: 0
+      max: 45
+      data_filter: {
+        data_type: METRIC_AGGREGATE_MEAN
+        value_key: "ProtocolNotLoadedlatency"
+      }
+    }
+    configs: {
+      min: 0
+      max: 25
+      data_filter: {
+        data_type: METRIC_AGGREGATE_MEAN
+        value_key: "ProtocolLoadedlatency"
+      }
+    }
+  }
+}

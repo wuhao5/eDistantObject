@@ -1,0 +1,46 @@
+local include "testing/integration/config/config.ncl";
+
+// The ads flex pool
+// http://cnsviewer/cns/yi-d/home/ios-device-testing/edo/guitar/ttl=60d
+borguser = "ios-device-testing";
+cns_path = "/cns/{WFEXEC_BORG_CELL}-d/home/edo/%s" % borguser;
+
+device_tests = [
+  ::guitar::Tests(
+    execution_method = ::guitar::Tests::ExecutionMethod::LOCAL,
+    local_tests_settings = ::guitar::LocalTestsSettings(max_simultaneous_tests = 3),
+    blaze_flags = [
+      "--config=ios_arm64",
+      "--ios_minimum_os=9.0",
+      "--xcode_version=9.2",
+      "--notest_loasd",
+    ],
+    targets = [
+      "///Service/Tests:ServiceUITests_device",
+      "///Service/Tests:ServiceUnitTests_device",
+      "///Service/Tests/Performance:PerformanceTests_perfgate_device",
+    ],
+    // http://g3doc/company/teams/mobileharness/config/job_timing.md#using-guitar
+    // 1 hour to at least run all the tests on one device
+    per_target_time_limit_secs = 60 * 60,
+  ),
+];
+
+// http://guitar/cbuild/EDODeviceTestWorkflow
+workflow = ::guitar::IntegrationTest(
+  name = "EDODeviceTestWorkflow",
+  emails = ["earlgrey-2-dev+guitar@google.com"],
+  base_client_spec = ::guitar::MakeClientSpec(
+    latest_green_from_tap_projects = [
+      "easy_distant_object.i386", "easy_distant_object.x86_64",
+    ]),
+  storage_gfile_dirpath = cns_path + "/guitar/ttl=60d",
+  extra_overview_sponge_labels = ["edo", "mh-device"],
+  tests = device_tests,
+  cbuild_notification = ::guitar::IntegrationTest::CbuildNotification::ON_EVERY_UNHEALTHY,
+  trigger_config = ::guitar::TriggerConfig(
+    throttle = ::guitar::TriggerThrottle(
+      "every 12 hours synchronized",
+    ),
+  ),
+);
