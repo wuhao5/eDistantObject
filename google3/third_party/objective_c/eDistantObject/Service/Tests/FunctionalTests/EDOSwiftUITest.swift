@@ -17,6 +17,10 @@
 import Foundation
 import XCTest
 
+import third_party_objective_c_eDistantObject_Service_Service
+import third_party_objective_c_eDistantObject_Service_Tests_TestsBundle_TestsBundleHeader
+import third_party_objective_c_eDistantObject_Service_Tests_TestsBundle_TestsSwiftProtocol
+
 class EDOSwiftUITest: XCTestCase {
   @discardableResult
   func launchAppWithPort(port : Int, value : Int) -> XCUIApplication {
