@@ -99,6 +99,9 @@ static const int64_t kPingTimeoutSeconds = 10 * NSEC_PER_SEC;
   // 1. Create the waited queue so it can also process the requests while waiting for the response
   // when the incoming request is dispatched to this same queue.
   EDOMessageQueue *messageQueue = [[EDOMessageQueue alloc] init];
+  dispatch_sync(self.isolationQueue, ^{
+    self.messageQueue = messageQueue;
+  });
 
   // 2. Do send.
 #pragma clang diagnostic push
